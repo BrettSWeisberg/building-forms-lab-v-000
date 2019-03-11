@@ -1,32 +1,21 @@
 import React, { Component } from 'react'
+import BandInput from '../components/BandInput';
+import Bands from '../components/Bands';
 import { connect } from 'react-redux'
-import BandInput from '../components/BandInput'
 
 class BandsContainer extends Component {
-
-
-   //renderBands = () => this.props.bands.map((band, id) => <div key={id}>{band.name}</div>)
-  //{this.renderBands}
-
   render() {
-    return(
+    return (
       <div>
-        <BandInput addBand={this.props.addBand} />
+        <BandInput addBand={this.props.addBand}/>
+        <Bands bands={this.props.bands}/>
       </div>
     )
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    bands: state.bands
-  }
-}
+const mapStateToProps = ({ bands }) => ({ bands })
 
-const mapDispatchToProps = dispatch => {
-    return {
-        addBand: formData => dispatch({ type: 'ADD_BAND', formData })
-    };
-};
+const mapDispatchToProps = dispatch => ({ addBand: band => dispatch({ type: "ADD_BAND", band }) })
 
-export default connect(mapStateToProps)(BandsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BandsContainer)

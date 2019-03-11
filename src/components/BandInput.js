@@ -1,46 +1,38 @@
-// Add BandInput component
-import React, { Component } from 'react'
-//import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
 class BandInput extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: '',
-    };
+
+  state = {
+    name: ''
   }
 
-  handleChange = event => {
+  handleOnChange(event) {
     this.setState({
-      name: event.target.value
+      name: event.target.value,
     });
   }
 
-  handleSubmit = event => {
-  event.preventDefault();
-  this.props.addBand(this.state.name)
-  this.props.dispatch({ type: 'ADD_BAND', payload: this.state });
-}
+  handleOnSubmit(event) {
+    event.preventDefault();
+    this.props.addBand(this.state);
+    this.setState({
+      name: '',
+    });
+  }
 
   render() {
-    return(
+    return (
       <div>
-        Band Input
-          <form onSubmit={event => this.handleSubmit(event)}>
-           <p>
-             <label>Brand Name</label>
-             <input
+        <form onSubmit={(event) => this.handleOnSubmit(event)}>
+          <input
             type="text"
-            onChange={this.handleChange} value={this.state.text}/>
-           </p>
-            <input type="submit" />
-          </form>
+            value={this.state.name}
+            onChange={(event) => this.handleOnChange(event)} />
+          <input type="submit" />
+        </form>
       </div>
-    )
+    );
   }
-}
-
-
+};
 
 export default BandInput;
-//export default connect(null, mapDispatchToProps)(BandInput);
